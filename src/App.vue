@@ -8,8 +8,9 @@
 
         <v-toolbar-title class="title">UNISEL TimeTable</v-toolbar-title>
         <v-spacer></v-spacer>
-        <span class="mr-3"><v-btn variant="outlined">Contribute</v-btn></span>
-
+        <span class="mr-3">Contribute</span>
+        <span class="mr-3"><v-btn href="https://github.com/vicevirus/UNISEL-TimeTable-REST-Scraper" variant="outlined">API</v-btn></span>
+        <span class="mr-3"><v-btn href="https://github.com/vicevirus/UNISEL-TimeTable-Vue" variant="outlined">Vue</v-btn></span>
       </v-app-bar>
 
       <div class="boxSpace"></div>
