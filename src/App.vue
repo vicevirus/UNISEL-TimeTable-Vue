@@ -1,4 +1,4 @@
-Place the clear button somewhere easy and neat to access
+
 <template>
   <div id="app">
 
@@ -8,7 +8,12 @@ Place the clear button somewhere easy and neat to access
 
         <v-toolbar-title class="title">UNISEL TimeTable</v-toolbar-title>
         <v-spacer></v-spacer>
-        <span class="mr-3">Contribute</span>
+        <span class="mr-3">
+          <v-btn variant="outlined" :color="toggleButtonColor" @click="toggleTheme">
+            <i class="material-icons">{{ theme.global.current.value.dark ? 'wb_sunny' : 'nights_stay' }}</i>
+
+          </v-btn>
+        </span>
         <span class="mr-3"><v-btn href="https://github.com/vicevirus/UNISEL-TimeTable-REST-Scraper"
             variant="outlined">API</v-btn></span>
         <span class="mr-3"><v-btn href="https://github.com/vicevirus/UNISEL-TimeTable-Vue"
@@ -21,12 +26,12 @@ Place the clear button somewhere easy and neat to access
 
         <v-card variant="tonal" style="text-align: center; ">
 
-          <h3 style="font-family: 'Montserrat', sans-serif">Campus</h3>
+          <h3 style="font-family: 'Montserrat', sans-serif"><b>Campus</b></h3>
 
           <v-divider thickness="1px" color="purple"></v-divider>
           <p style="font-size: 15px">Semester: <b>{{ semesterCode }}</b></p>
           <v-card-text>
-            <v-alert color="grey lighten-2" v-if="!selectedCampus" text="Please select a campus"></v-alert>
+            <v-alert color="blue-grey" v-if="!selectedCampus" text="Please select a campus"></v-alert>
 
             <v-container :fluid="true">
               <div class="radio-group">
@@ -60,7 +65,7 @@ Place the clear button somewhere easy and neat to access
             <v-card-text>
               <v-container :fluid="true">
 
-                <v-btn color="orange" @click="selectedSubject = ''" rounded="lg" class="clear-button" style="width: 100%">
+                <v-btn color="orange" @click="reset" rounded="lg" class="clear-button" style="width: 100%">
                   <i class="material-icons">
                     clear
                   </i>
@@ -81,6 +86,7 @@ Place the clear button somewhere easy and neat to access
 
 
       </div>
+
       <v-container :fluid="true" class="timetable-container">
 
         <v-responsive v-if="selectedSubject !== '' && selectedCampus == 'BJ' || selectedCampus == 'F'">
@@ -107,7 +113,7 @@ Place the clear button somewhere easy and neat to access
             </thead>
             <tbody>
               <tr v-for="day in daysOfWeek" :key="day">
-                <td>{{ day.slice(0, 3) }}</td>
+                <td class="day">{{ day.slice(0, 3) }}</td>
                 <td>{{ timeData[selectedSubject][day.toLowerCase()][0] || '-' }}</td>
                 <td>{{ timeData[selectedSubject][day.toLowerCase()][1] || '-' }}</td>
                 <td>{{ timeData[selectedSubject][day.toLowerCase()][2] || '-' }}</td>
@@ -153,7 +159,7 @@ Place the clear button somewhere easy and neat to access
               <tr v-for="day in daysOfWeek" :key="day">
                 <td>{{ day.slice(0, 3) }}</td>
 
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][0] || '-' }}</td>
+                <td style="background-color: #ccc">{{ timeData[selectedSubject][day.toLowerCase()][0] || '-' }}</td>
                 <td>{{ timeData[selectedSubject][day.toLowerCase()][1] || '-' }}</td>
                 <td>{{ timeData[selectedSubject][day.toLowerCase()][2] || '-' }}</td>
                 <td>{{ timeData[selectedSubject][day.toLowerCase()][3] || '-' }}</td>
@@ -184,14 +190,22 @@ Place the clear button somewhere easy and neat to access
 
 import axios from "axios";
 import vSelect from "vue-select";
-
+import { useTheme } from 'vuetify'
 export default {
+  setup() {
+    const theme = useTheme()
+
+    return {
+      theme,
+      toggleTheme: () => theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+    }
+  },
   components: {
     vSelect,
   },
   data() {
     return {
-      campuses: ["SA", "BJ"],
+      campuses: ["SA", "BJ", "F"],
       selectedCampus: "",
       semesterCode: "",
       searchInput: null,
@@ -233,17 +247,26 @@ export default {
       }
     },
     reset() {
-      this.selectedSubject = ""; // clear the selectedSubject property
-      this.$refs.input.search = 'Default Value';
+      if (this.selectedCampus === "F") {
+        this.selectedSubject = ""; // clear the selectedSubject property
+        this.$refs.input.search = ""; // clear the input search property
+      } else {
+        this.selectedSubject = ""; // clear the selectedSubject property
+        this.$refs.input.search = 'Default Value';
+      }
     },
 
   },
-  computed: {},
+  computed: {
+    toggleButtonColor() {
+      return this.theme.global.current.value.dark ? 'yellow darken-3' : 'grey';
+    }
+  },
   watch: {
     selectedCampus() {
       this.updateSubjects();
     },
-
+    
   },
   created() {
     this.updateSubjects();
@@ -352,10 +375,9 @@ export default {
   .timetable th,
   .timetable td {
     font-size: 5px;
+    line-height: 1;
   }
 }
-
-
 
 .timetable {
   width: 190vh;
@@ -366,22 +388,30 @@ export default {
 
 }
 
-
 .timetable th,
 .timetable td {
-
   border: 1px solid black;
   text-align: center;
   font-size: 13px;
-  word-wrap: break-word;
+  line-height: 1.5;
 }
 
-.timetable th {
-  background-color: #ccc;
+.timetable th,
+.day {
+
+  font-weight: bold;
+  background-color: #E0E0E0;
+  color: black !important;
 }
 
+.timetable tr {
+  height: 40px;
+}
 
 .xAxis {
   min-width: 80px;
+  font-weight: bold !important;
+  background-color: #E0E0E0;
+  color: black !important;
 }
 </style>
