@@ -1,4 +1,4 @@
-
+Place the clear button somewhere easy and neat to access
 <template>
   <div id="app">
 
@@ -9,15 +9,17 @@
         <v-toolbar-title class="title">UNISEL TimeTable</v-toolbar-title>
         <v-spacer></v-spacer>
         <span class="mr-3">Contribute</span>
-        <span class="mr-3"><v-btn href="https://github.com/vicevirus/UNISEL-TimeTable-REST-Scraper" variant="outlined">API</v-btn></span>
-        <span class="mr-3"><v-btn href="https://github.com/vicevirus/UNISEL-TimeTable-Vue" variant="outlined">Vue</v-btn></span>
+        <span class="mr-3"><v-btn href="https://github.com/vicevirus/UNISEL-TimeTable-REST-Scraper"
+            variant="outlined">API</v-btn></span>
+        <span class="mr-3"><v-btn href="https://github.com/vicevirus/UNISEL-TimeTable-Vue"
+            variant="outlined">Vue</v-btn></span>
       </v-app-bar>
 
       <div class="boxSpace"></div>
-      <div class="boxSpace"></div>
+
       <div class="wrapper">
 
-        <v-card style="text-align: center; ">
+        <v-card variant="tonal" style="text-align: center; ">
 
           <h3 style="font-family: 'Montserrat', sans-serif">Campus</h3>
 
@@ -50,34 +52,31 @@
               </div>
               <div class="boxSpace" style="height: 1vh"></div>
             </v-container>
-            <div v-if="selectedCampus">
+          </v-card-text>
+        </v-card>
+        <div class="boxSpace" style="height: 2vh"></div>
+        <div v-if="selectedCampus">
+          <v-card variant="tonal" style="text-align: center; ">
+            <v-card-text>
+              <v-container :fluid="true">
 
-              <v-container>
-                <v-autocomplete auto-select-first ref="input" label="Subject" v-model="selectedSubject" :items="subjects"
-                  item-text="subject" variant="solo" item-value="index" placeholder="Select Subject" clearable
-                  :style="{ 'max-width': '100%', 'height': '10vh' }">
-
-
-
-
-
-
-                </v-autocomplete>
-
-                <v-btn color="orange" @click="selectedSubject = ''" rounded="lg">
+                <v-btn color="orange" @click="selectedSubject = ''" rounded="lg" class="clear-button" style="width: 100%">
                   <i class="material-icons">
                     clear
                   </i>
                   Clear
-
                 </v-btn>
-                <div class="boxSpacer" style="height: 3vh;"></div>
+                <div class="boxSpace" style="height: 1vh;"></div>
+                <v-autocomplete auto-select-first ref="input" label="Subject" v-model="selectedSubject" :items="subjects"
+                  item-text="subject" variant="solo" item-value="index" placeholder="Select Subject" clearable
+                  :style="{ 'max-width': '100%', 'height': '10vh' }">
+                </v-autocomplete>
+                <div class="boxSpace" style="height: 1vh"></div>
                 <v-alert><b>Note: </b>Scroll the table horizontally/vertically if it's too big.</v-alert>
               </v-container>
-
-            </div>
-          </v-card-text>
-        </v-card>
+            </v-card-text>
+          </v-card>
+        </div>
 
 
 
@@ -260,6 +259,7 @@ export default {
   margin-top: -2rem;
   margin-bottom: -2rem;
 }
+
 
 .radio-label {
   display: inline-block;
