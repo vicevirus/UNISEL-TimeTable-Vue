@@ -26,7 +26,7 @@
 
         <v-card variant="tonal" style="text-align: center; ">
 
-          <h3 style="font-family: 'Montserrat', sans-serif"><b>Campus</b></h3>
+          <h3 ><b>Campus</b></h3>
 
           <v-divider thickness="1px" color="purple"></v-divider>
           <p style="font-size: 15px">Semester: <b>{{ semesterCode }}</b></p>
@@ -151,15 +151,17 @@
                 <th class="xAxis">16:00</th>
                 <th class="xAxis">17:00</th>
                 <th class="xAxis">18:00</th>
-
-
+                <th class="xAxis">19:00</th>
+                <th class="xAxis">20:00</th>
+                <th class="xAxis">21:00</th>
+  
               </tr>
             </thead>
             <tbody>
               <tr v-for="day in daysOfWeek" :key="day">
                 <td>{{ day.slice(0, 3) }}</td>
 
-                <td style="background-color: #ccc">{{ timeData[selectedSubject][day.toLowerCase()][0] || '-' }}</td>
+                <td>{{ timeData[selectedSubject][day.toLowerCase()][0] || '-' }}</td>
                 <td>{{ timeData[selectedSubject][day.toLowerCase()][1] || '-' }}</td>
                 <td>{{ timeData[selectedSubject][day.toLowerCase()][2] || '-' }}</td>
                 <td>{{ timeData[selectedSubject][day.toLowerCase()][3] || '-' }}</td>
@@ -170,6 +172,9 @@
                 <td>{{ timeData[selectedSubject][day.toLowerCase()][8] || '-' }}</td>
                 <td>{{ timeData[selectedSubject][day.toLowerCase()][9] || '-' }}</td>
                 <td>{{ timeData[selectedSubject][day.toLowerCase()][10] || '-' }}</td>
+                <td>{{ timeData[selectedSubject][day.toLowerCase()][11] || '-' }}</td>
+                <td>{{ timeData[selectedSubject][day.toLowerCase()][12] || '-' }}</td>
+                <td>{{ timeData[selectedSubject][day.toLowerCase()][13] || '-' }}</td>
 
               </tr>
               <tr></tr>
