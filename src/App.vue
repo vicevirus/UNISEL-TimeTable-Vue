@@ -159,7 +159,7 @@
             </thead>
             <tbody>
               <tr v-for="day in daysOfWeek" :key="day">
-                <td>{{ day.slice(0, 3) }}</td>
+                <td class="day">{{ day.slice(0, 3) }}</td>
 
                 <td>{{ timeData[selectedSubject][day.toLowerCase()][0] || '-' }}</td>
                 <td>{{ timeData[selectedSubject][day.toLowerCase()][1] || '-' }}</td>
